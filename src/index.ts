@@ -33,11 +33,11 @@ app.post('/', async (req: Request, res: Response) => {
     if (await isValid) {
         try {
             const parsedBody = JSON.parse(requestBody);
-            const title = 'Post from GitHub';
+            const title = '新提交';
             const sender = parsedBody.sender?.login || 'Unknown sender';
-            const commit = parsedBody.repository?.full_name || 'Unknown commit';
-            
-            await sendMsg(title, sender, commit);
+            const commit = parsedBody.commits?.message || 'Unknown commit';
+            const repo = parsedBody.repository?.full_name || 'Unknown repo';
+            await sendMsg(title, sender, commit, repo);
             res.status(200).send('Webhook received');
         } catch (error) {
             logger.error('Error parsing webhook body:', error);

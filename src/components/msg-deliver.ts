@@ -2,7 +2,7 @@
 
 
 
-async function sendMsg(tittle: string, sender: string, commit: string) {
+async function sendMsg(tittle: string, sender: string, commit: string, repo: string) {
     const modifiedMessage = {
         msg_type: 'post',
         content: {
@@ -12,7 +12,7 @@ async function sendMsg(tittle: string, sender: string, commit: string) {
                     content: [
                         [{
                             tag: 'text',
-                            text: 'sender: '
+                            text: '提交者： '
                         }, {
                             tag: 'text',
                             text: sender,
@@ -22,11 +22,22 @@ async function sendMsg(tittle: string, sender: string, commit: string) {
                         },
                         {
                             tag: 'text',
-                            text: 'commit: '
+                            text: '提交： '
                         }, {
                             tag: 'text',
                             text: commit,
-
+                        },
+                        {
+                            tag: 'text',
+                            text: '\n'
+                        },
+                        {
+                            tag: 'text',
+                            text: '仓库： '
+                        }
+                            , {
+                            tag: 'text',
+                            text: repo,
                         }]
                     ]
                 }
