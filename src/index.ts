@@ -35,10 +35,7 @@ app.post('/', async (req: Request, res: Response) => {
         await sendErr();
         logger.error('Webhook received but signature verification failed', { requestBody: Body });
         res.status(400).send('Webhook received but signature verification failed');
-
     }
-
-    res.status(200).send('Webhook received');
 });
 
 app.listen(port, () => {
