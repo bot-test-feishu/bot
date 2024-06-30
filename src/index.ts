@@ -19,6 +19,10 @@ const logger = winston.createLogger({
     ]
 });
 
+app.get('/', (req: Request, res: Response) => {
+    res.status(200).send('Hello world');
+});
+
 app.post('/', async (req: Request, res: Response) => {
     const { headers, body } = req;
     const signature: string = headers['x-hub-signature-256'] as string || '';
