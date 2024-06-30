@@ -23,6 +23,7 @@ app.post('/', async (req: Request, res: Response) => {
     const { headers, body } = req;
     const signature: string = headers['x-hub-signature-256'] as string || '';
     const Body = body;
+    console.log('Received webhook');
 
     const result = await handleWebhook(signature, Body);
     if (result) {
