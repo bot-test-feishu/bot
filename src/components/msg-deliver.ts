@@ -1,5 +1,6 @@
 
 
+const URL = process.env.URL ?? '';
 
 
 async function sendMsg(tittle: string, sender: string, commit: string, repo: string,repoUrl:string) {
@@ -47,7 +48,7 @@ async function sendMsg(tittle: string, sender: string, commit: string, repo: str
     };
 
     try {
-        const response = await fetch('https://open.feishu.cn/open-apis/bot/v2/hook/78096ca5-fe98-4455-992f-1364d09d619e', {
+        const response = await fetch(URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -73,7 +74,7 @@ async function sendErr() {
         }
     }
     try {
-        const response = await fetch('https://open.feishu.cn/open-apis/bot/v2/hook/78096ca5-fe98-4455-992f-1364d09d619e', {
+        const response = await fetch(URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

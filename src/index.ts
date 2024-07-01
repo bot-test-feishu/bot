@@ -57,7 +57,7 @@ app.listen(port, () => {
 });
 
 const webhooks = new Webhooks({
-    secret: 'aec_2024_sisi_lufor_moc',
+    secret: process.env.SECRER || 'mysecret',
 });
 
 const  handleWebhook = async (signature: string, body: string): Promise<boolean> => {
