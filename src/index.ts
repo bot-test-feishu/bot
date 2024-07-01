@@ -61,6 +61,7 @@ const webhooks = new Webhooks({
 });
 
 const  handleWebhook = async (signature: string, body: string): Promise<boolean> => {
+    console.log('env: ',process.env.SECRET);
     return webhooks.verify(body, signature);
 };
 
