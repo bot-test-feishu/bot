@@ -27,9 +27,9 @@ app.post('/', async (req: Request, res: Response) => {
     const { headers, body } = req;
     const signature: string = headers['x-hub-signature-256'] as string || '';
     const requestBody = JSON.stringify(body); // Ensure body is a string for verification
-    console.log('Received webhook');
 
     const isValid = handleWebhook(signature, requestBody);
+    console.log('isSignatureValid: ', isValid);
     if (await isValid) {
         try {
             const parsedBody = JSON.parse(requestBody);
@@ -60,8 +60,8 @@ const webhooks = new Webhooks({
     secret: process.env.SECRER || 'mysecret',
 });
 
-const  handleWebhook = async (signature: string, body: string): Promise<boolean> => {
-    console.log('env: ',process.env.SECRET);
+const handleWebhook = async (signature: string, body: string): Promise<boolean> => {
+    console.log('env: ', process.env.SECRET);
     return webhooks.verify(body, signature);
 };
 
