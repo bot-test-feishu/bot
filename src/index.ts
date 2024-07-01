@@ -7,7 +7,7 @@ const app = express();
 const port = 8600;
 app.use(express.json());
 
-/*
+
 
 const logger = winston.createLogger({
     level: 'info',
@@ -20,7 +20,7 @@ const logger = winston.createLogger({
         new winston.transports.File({ filename: 'error.log', level: 'error' })
     ]
 });
-*/
+
 
 app.get('/', (req: Request, res: Response) => {
     res.status(200).send('Hello world');
@@ -44,12 +44,12 @@ app.post('/', async (req: Request, res: Response) => {
             await sendMsg(title, sender, commit, repo, repoUrl);
             res.status(200).send('Webhook received');
         } catch (error) {
-           // logger.error('Error parsing webhook body:', error);
+            logger.error('Error parsing webhook body:', error);
             await sendErr();
             res.status(500).send('Internal Server Error');
         }
     } else {
-      //  logger.error('Webhook received but signature verification failed', { requestBody });
+        logger.error('Webhook received but signature verification failed', { requestBody });
         await sendErr();
         res.status(400).send('Webhook received but signature verification failed');
     }
@@ -60,12 +60,11 @@ app.listen(port, () => {
 });
 
 const webhooks = new Webhooks({
-    secret: process.env.SECRER ?? 'mysecret',
+    secret: process.env.SECRET ?? 'mysecret',
 });
 
 const handleWebhook = async (signature: string, body: string): Promise<boolean> => {
     console.log('env: ', process.env.SECRET);
-    console.log('\n');
     console.log('body: ', body);
     return webhooks.verify(body, signature);
 };
