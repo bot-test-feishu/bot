@@ -2,7 +2,7 @@
 
 
 
-async function sendMsg(tittle: string, sender: string, commit: string, repo: string) {
+async function sendMsg(tittle: string, sender: string, commit: string, repo: string,repoUrl:string) {
     const modifiedMessage = {
         msg_type: 'post',
         content: {
@@ -36,8 +36,9 @@ async function sendMsg(tittle: string, sender: string, commit: string, repo: str
                             text: '仓库： '
                         }
                             , {
-                            tag: 'text',
+                            tag: 'a',
                             text: repo,
+                            href: repoUrl
                         }]
                     ]
                 }

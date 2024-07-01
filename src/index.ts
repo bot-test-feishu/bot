@@ -37,7 +37,8 @@ app.post('/', async (req: Request, res: Response) => {
             const sender = parsedBody.sender?.login || 'Unknown sender';
             const commit = parsedBody.commits[0]?.message || 'Unknown commit';
             const repo = parsedBody.repository?.full_name || 'Unknown repo';
-            await sendMsg(title, sender, commit, repo);
+            const repoUrl = parsedBody.repository?.html_url || 'Unknown repo url';
+            await sendMsg(title, sender, commit, repo, repoUrl);
             res.status(200).send('Webhook received');
         } catch (error) {
             logger.error('Error parsing webhook body:', error);
