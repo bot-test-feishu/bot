@@ -7,6 +7,8 @@ const app = express();
 const port = 8600;
 app.use(express.json());
 
+/*
+
 const logger = winston.createLogger({
     level: 'info',
     format: winston.format.combine(
@@ -18,6 +20,7 @@ const logger = winston.createLogger({
         new winston.transports.File({ filename: 'error.log', level: 'error' })
     ]
 });
+*/
 
 app.get('/', (req: Request, res: Response) => {
     res.status(200).send('Hello world');
@@ -57,11 +60,13 @@ app.listen(port, () => {
 });
 
 const webhooks = new Webhooks({
-    secret: process.env.SECRER || 'mysecret',
+    secret: process.env.SECRER ?? 'mysecret',
 });
 
 const handleWebhook = async (signature: string, body: string): Promise<boolean> => {
     console.log('env: ', process.env.SECRET);
+    console.log('\n');
+    console.log('body: ', body);
     return webhooks.verify(body, signature);
 };
 
