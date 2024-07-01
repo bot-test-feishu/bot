@@ -28,9 +28,9 @@ app.post('/', async (req: Request, res: Response) => {
     const signature: string = headers['x-hub-signature-256'] as string || '';
     const requestBody = JSON.stringify(body); // Ensure body is a string for verification
 
-    const isValid = handleWebhook(signature, requestBody);
+    const isValid = await handleWebhook(signature, requestBody);
     console.log('isSignatureValid: ', isValid);
-    if (await isValid) {
+    if (isValid) {
         try {
             const parsedBody = JSON.parse(requestBody);
             const title = '新提交';
