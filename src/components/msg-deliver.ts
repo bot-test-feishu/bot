@@ -1,6 +1,6 @@
 
 
-const URL = process.env.URL ?? '';
+const FEISHU_GITHUB_URL = process.env.URL ?? '';
 
 
 async function sendMsg(tittle: string, sender: string, commit: string, repo: string,repoUrl:string) {
@@ -48,7 +48,7 @@ async function sendMsg(tittle: string, sender: string, commit: string, repo: str
     };
 
     try {
-        const response = await fetch(URL, {
+        const response = await fetch(FEISHU_GITHUB_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -74,7 +74,7 @@ async function sendErr() {
         }
     }
     try {
-        const response = await fetch(URL, {
+        const response = await fetch(FEISHU_GITHUB_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
