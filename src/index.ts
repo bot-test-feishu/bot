@@ -26,7 +26,7 @@ app.get('/', (req: Request, res: Response) => {
     res.status(200).send('Hello world');
 });
 
-app.post('/', async (req: Request, res: Response) => {
+app.post('/github', async (req: Request, res: Response) => {
     const { headers, body } = req;
     const signature: string = headers['x-hub-signature-256'] as string || '';
     const requestBody = JSON.stringify(body); // Ensure body is a string for verification
@@ -53,6 +53,10 @@ app.post('/', async (req: Request, res: Response) => {
         await sendErr();
         res.status(400).send('Webhook received but signature verification failed');
     }
+});
+
+app.post('/err', async (req: Request, res: Response) => {
+
 });
 
 app.listen(port, () => {
