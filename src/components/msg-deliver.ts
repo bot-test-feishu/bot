@@ -3,7 +3,7 @@
 const FEISHU_GITHUB_URL = process.env.URL ?? '';
 
 
-async function sendMsg(tittle: string, sender: string, commit: string, repo: string,repoUrl:string) {
+async function sendMsg(tittle: string, sender: string, commit: string, repo: string,repoUrl:string, branch: string) {
     const modifiedMessage = {
         msg_type: 'post',
         content: {
@@ -40,6 +40,15 @@ async function sendMsg(tittle: string, sender: string, commit: string, repo: str
                             tag: 'a',
                             text: repo,
                             href: repoUrl
+                        },{
+                            tag: 'text',
+                            text: '\n'
+                        },{
+                            tag: 'text',
+                            text: '分支： '
+                        },{
+                            tag: 'text',
+                            text: branch,
                         }]
                     ]
                 }
