@@ -26,7 +26,7 @@ app.get('/', (req: Request, res: Response) => {
     res.status(200).send('Hello world');
 });
 
-app.post('/github', async (req: Request, res: Response) => {
+app.post('/hook/github', async (req: Request, res: Response) => {
     const { headers, body } = req;
     const signature: string = headers['x-hub-signature-256'] as string || '';
     const requestBody = JSON.stringify(body); // Ensure body is a string for verification
@@ -41,7 +41,8 @@ app.post('/github', async (req: Request, res: Response) => {
             const commit = parsedBody.commits[0]?.message || 'Unknown commit';
             const repo = parsedBody.repository?.full_name || 'Unknown repo';
             const repoUrl = parsedBody.repository?.html_url || 'Unknown repo url';
-            await sendMsg(title, sender, commit, repo, repoUrl);
+            const branch = parsedBody.ref?.split('/').pop() || 'Unknown branch';
+            await sendMsg(title, sender, commit, repo, repoUrl,branch);
             res.status(200).send('Webhook received');
         } catch (error) {
             logger.error('Error parsing webhook body:', error);
