@@ -21,6 +21,10 @@ const logger = winston.createLogger({
     ]
 });
 
+app.get('/health', (req: Request, res: Response) => {
+    console.log('Server is healthy');
+    res.status(200).send('Hello world');
+});
 
 app.get('/', (req: Request, res: Response) => {
     console.log('Server is healthy');
